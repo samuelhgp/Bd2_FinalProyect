@@ -1,7 +1,7 @@
 package backend.bd_proyect.Controller;
 
 import backend.bd_proyect.DTOs.CommentDTO;
-import backend.bd_proyect.Model.Comments.CommentsModel;
+import backend.bd_proyect.DTOs.CommentResponseDTO;
 import backend.bd_proyect.Service.ICommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class CommentsController {
     }
 
     @GetMapping("/view/{idBook}")
-    public List<CommentsModel> viewComments(@PathVariable String idBook) {
+    public List<CommentResponseDTO> viewComments(@PathVariable String idBook) {
         return commentsService.viewComments(idBook);
     }
 }
