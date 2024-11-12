@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,4 +61,28 @@ public class CommentsServiceImp implements ICommentsService {
                 ))
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public String deleteComment(String commentId) {
+        // Busca el comentario antes de intentar eliminarlo
+        Optional<CommentsModel> commentOpt = commentsRepository.findById(commentId);
+        if (commentOpt.isPresent()) {
+            // Elimina el comentario de la colección Comments
+            commentsRepository.deleteById(commentId);
+    
+            // También elimina el comentario de la lista de comentarios en la colección Books
+            CommentsModel comment = commentOpt.get();
+            booksRepository.findById(comment.getIdBook()).ifPresent(book -> {
+                if (book.getComments() != null) {
+                    book.getComments().remove(comment.getDescription());
+                    booksRepository.save(book);
+                }
+            });
+    
+            return "El comentario ha sido eliminado exitosamente.";
+        } else {
+            return "Comentario no encontrado. No se realizó ninguna eliminación.";
+        }
+    }
+
 }

@@ -26,4 +26,11 @@ public class CommentsController {
     public List<CommentResponseDTO> viewComments(@PathVariable String idBook) {
         return commentsService.viewComments(idBook);
     }
+
+    // Nuevo método para eliminar un comentario
+    @DeleteMapping("/delete/{commentId}")
+    public ResponseEntity<String> deleteComment(@PathVariable String commentId) {
+        String message = commentsService.deleteComment(commentId);
+        return ResponseEntity.ok(message);
+    }
 }
