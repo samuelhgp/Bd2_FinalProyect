@@ -12,7 +12,7 @@ public interface IExchangesService {
     String sendExchangeRequest(ExchangeRequestDTO exchangeRequestDTO);
 
     // Método para aceptar una solicitud de intercambio
-    ExchangesModel acceptExchangeRequest(String exchangeId);
+    String acceptExchangeRequest(String exchangeId);
 
     // Método para rechazar una solicitud de intercambio
     ExchangesModel declineExchangeRequest(String exchangeId);

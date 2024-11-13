@@ -25,7 +25,7 @@ public class ExchangesController {
 
     // Método para aceptar una solicitud de intercambio
     @PutMapping("/accept/{exchangeId}")
-    public ExchangesModel acceptExchangeRequest(@PathVariable String exchangeId) {
+    public String acceptExchangeRequest(@PathVariable String exchangeId) {
         return exchangesService.acceptExchangeRequest(exchangeId);
     }
 
