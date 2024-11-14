@@ -180,4 +180,16 @@ public class UsersServiceImpl implements IUsersService {
         UsersModel user = usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         return user.getFollowing();
     }
+
+    @Override
+    public List<UsersModel> BooksByUser(String userName) {
+        List<UsersModel> res = usersRepository.BooksByUser(userName);
+        return res;
+    }
+
+    @Override
+    public List<UsersModel> NonAcceptedExchanges(String Username) {
+        List<UsersModel> res = usersRepository.NonAcceptedExchanges(Username);
+        return res;
+    }
 }

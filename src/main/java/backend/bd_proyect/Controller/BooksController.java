@@ -1,18 +1,27 @@
 package backend.bd_proyect.Controller;
 
+import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import backend.bd_proyect.Exception.InvalidBookParameterException;
 import backend.bd_proyect.Exception.UnauthorizedAccessException;
 import backend.bd_proyect.Exception.UnauthorizedDeletionException;
 import backend.bd_proyect.Model.BooksModel;
 import backend.bd_proyect.Service.IBooksService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.InvalidParameterException;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/books")
@@ -21,6 +30,29 @@ public class BooksController {
     @Autowired
     private IBooksService booksService;
 
+    @GetMapping("/allBooksStates")
+    public ResponseEntity<List<BooksModel>> allStates(){
+        List<BooksModel> Books = booksService.bookStates();
+        return new ResponseEntity<>(Books, HttpStatus.OK);
+    }
+
+    @GetMapping("/Avalibles")
+    public ResponseEntity<List<BooksModel>> AvalibleBooks(){
+        List<BooksModel> books = booksService.booksAvalibles();
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @GetMapping("/allCommentsBooks")
+    public ResponseEntity<List<BooksModel>> allComments(){
+        List<BooksModel> comments = booksService.allCommentsBooks();
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+    @GetMapping("/BooksSort")
+    public ResponseEntity<List<BooksModel>> sortComments(){
+        List<BooksModel> comments = booksService.BooksSortByComments();
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
     // Publicar un nuevo libro para intercambio
     @PostMapping("/add")
     public ResponseEntity<?> addBook(@RequestBody BooksModel book) {

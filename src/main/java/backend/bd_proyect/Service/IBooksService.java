@@ -23,4 +23,12 @@ public interface IBooksService {
 
     // Firma del método para obtener un libro específico por su ID
     BooksModel getBookById(String id);
+
+    List<BooksModel>bookStates();
+
+    List<BooksModel>booksAvalibles();
+
+    List<BooksModel>allCommentsBooks();
+
+    List<BooksModel>BooksSortByComments();
 }

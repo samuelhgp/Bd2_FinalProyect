@@ -22,6 +22,26 @@ public class BooksServiceImp implements IBooksService {
     @Autowired
     private BooksRepository booksRepository;
 
+    public List<BooksModel>bookStates(){
+        List<BooksModel> BooksByState = booksRepository.bookStates();
+        return BooksByState;
+    }
+
+    public List<BooksModel>booksAvalibles(){
+        List<BooksModel> Books = booksRepository.booksAvalibles();
+        return Books;
+    }
+
+    public List<BooksModel> allCommentsBooks(){
+        List<BooksModel> comments = booksRepository.allCommentsBooks();
+        return comments;
+    }
+
+    public List<BooksModel>BooksSortByComments(){
+        List<BooksModel> booksSort = booksRepository.BooksSortByComments();
+        return booksSort;
+    }
+
     // Búsqueda de libros por coincidencia en título, autor o género
     @Override
     public List<BooksModel> searchBooks(String query) {

@@ -1,17 +1,25 @@
 package backend.bd_proyect.Controller;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import backend.bd_proyect.DTOs.LoginResponse;
 import backend.bd_proyect.Model.Users.Credentials;
 import backend.bd_proyect.Model.Users.UsersModel;
 import backend.bd_proyect.Service.IUsersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import org.bson.types.ObjectId;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -19,6 +27,18 @@ public class UsersController {
 
     @Autowired
     private IUsersService usersService;
+
+    @GetMapping("/BooksUser/{username}")
+    public ResponseEntity<List<UsersModel>> booksByUser(String username){
+        List<UsersModel> res = usersService.BooksByUser(username);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/ExchangesNonAccepted/{username}")
+    public ResponseEntity<List<UsersModel>> notAcceptedExchanges(String username){
+        List<UsersModel> res = usersService.NonAcceptedExchanges(username);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<String> createUserProfile(@RequestBody UsersModel user) {

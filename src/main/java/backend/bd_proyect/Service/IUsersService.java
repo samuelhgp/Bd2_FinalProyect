@@ -10,7 +10,11 @@ import backend.bd_proyect.Model.Users.Credentials;
 import backend.bd_proyect.Model.Users.UsersModel;
 
 public interface IUsersService {
-    
+    //aggregations
+    List<UsersModel>BooksByUser(String userName);
+
+    List<UsersModel>NonAcceptedExchanges(String Username);
+
     // Métodos de gestión de perfil
     UsersModel createUserProfile(UsersModel user);
     UsersModel updateUserProfile(String id, UsersModel user);
